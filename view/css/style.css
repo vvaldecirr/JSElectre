@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-color: #e9f3ff;
+}
+#predio{
+	border: #000 3px solid;
+	width: 300px;
+	height: 696px;
+	position: absolute;
+	bottom: 0px;
+	left: 30px;
+}
+/*
+.andar{
+	background-image: url("../img/portal.gif");
+	border-bottom: #64b765 1px solid;
+	color: #d36100;
+	width: 100%;
+	height: 115px;
+	position: relative;
+}
+#vao{
+	background-color: #000;
+	width: 70px;
+	height: 696px;
+	position: absolute;
+	bottom: 0px;
+	left: 50px;
+}
+#elevador{
+	background-image: url("../img/elevador.gif");
+	background-color: #fff;
+	width: 70px;
+	height: 90px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+}
+#portae, #portad{
+	background-color: #aaa;
+	width: 35px;
+	height: 90px;
+	position: absolute;
+}
+#portae{
+	left: 0px;
+	border-right: #000 1px solid;
+}
+#portad{
+	right: 0px;
+	border-left: #000 1px solid;
+}
+.andar div{
+	border: #fff solid 5px;
+	width: 10px;
+	height: 10px;
+	background-color: #000;
+	position: absolute;
+	left: 19px;
+	bottom: 30px;
+}
+#painel{
+	border: #aaa 5px solid;
+	background-color: #000;
+	width: 120px;
+	height: 200px;
+	position: absolute;
+	bottom: 50px;
+	left: 400px;
+}
+#painel div{
+	font-family: Tahoma;
+	font-size: 29px;
+	text-align: center;
+	width: 35px;
+	height: 35px;
+	background-color: #555;
+	position: absolute;
+	border: #fff 5px solid;
+	color: #fff;
+}
+#info{
+	font-family: Tahoma;
+	font-size: 12px;
+	border: #aaa 5px solid;
+	background-color: #000;
+	color: #c00;
+	width: 200px;
+	height: 390px;
+	position: absolute;
+	bottom: 280px;
+	left: 350px;
+	padding: 5px;
+	overflow-y: scroll;
+}
+#pb1{
+	left: 10px;
+	top: 122px;
+}
+#pb2{
+	left: 65px;
+	top: 122px;
+}
+#pb3{
+	left: 10px;
+	top: 65px;
+}
+#pb4{
+	left: 65px;
+	top: 65px;
+}
+#pb5{
+	left: 10px;
+	top: 10px;
+}
+#pb6{
+	left: 65px;
+	top: 10px;
+}
+*/
