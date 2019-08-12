@@ -4,26 +4,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="author" content="Valdecir S. Pereira">
 <title>JSElectre 1.0</title>
-<link rel="stylesheet" href="style/halfviz.css" type="text/css" charset="utf-8">
-<!-- <link rel="stylesheet" href="view/css/style.css" type="text/css" media="screen" /> -->
-<!-- <link rel="stylesheet" href="view/graph/halfviz/style/halfviz.css" type="text/css" charset="utf-8"> -->
-<!-- <script type="text/javascript" src="model/Elevador.js"></script> -->
-<!-- <script type="text/javascript" src="model/Andar.js"></script> -->
+<link rel="stylesheet" href="view/css/style.css" type="text/css" media="screen" />
+<script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="model/Matrix.js"></script>
 <!-- <script type="text/javascript" src="control/Controlador.js"></script> -->
-<!-- <script type="text/javascript" src="view/Interface.js"></script> -->
 </head>
 <body>
 
-<!-- 
-<p id="demo"></p>
+<div id="demo"></div>
 <script type="text/javascript">
-	//document.getElementById("demo").innerHTML = text;
-	//document.write(text);
+	$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
+		//document.getElementById("demo").innerHTML = text;
+		//document.write(text);
+		
+		var electre = new Matrix(5, 5);
+		electre.printMatrix();
+	});
 </script>
 
-<a href="eleva/index.htm">elevator</a> 
--->
-
+<a href="eleva/index.htm">elevator</a> <br />
 <a href="view/arbor/demos/index.html#/js-electre-1">graph</a> 
 
 </body>
