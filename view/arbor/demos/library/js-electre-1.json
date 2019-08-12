@@ -1,8 +1,1 @@
-{
-"_id":"js-electre-1",
-"_rev":"1-6d9c51704ad48070adf35333f743d14a",
-"sys":{"repulsion":2600,"friction":0.5,"stiffness":512,"gravity":true},
-"src":"{color:none} ; choices\nAlice ->\nBruna\nBruna -> Carlos\nBruna -> Daniel\nEster -> Carlos\nEster -> Daniel\n; endings\nAlice {color:#0017b0}\nBruna {color:#c61e53}\nCarlos {color:#8dbe3c}\nDaniel {color:#eed24e}\nEster {color:#db8e3c}",
-"example":"cyoa",
-"title":"JS-Electre-1"
-}
+{"_id":"js-electre-1","_rev":"1-6d9c51704ad48070adf35333f743d14a","sys":{"repulsion":2600,"friction":0.5,"stiffness":512,"gravity":true},"src":"{color:none} ; choices\nAlice ->\nBruna\nBruna -> Carlos\nBruna -> Daniel\nEster -> Carlos\nEster -> Daniel\n; endings\nAlice {color:#0017b0}\nBruna {color:#c61e53}\nCarlos {color:#8dbe3c}\nDaniel {color:#eed24e}\nEster {color:#db8e3c}","example":"cyoa","title":"JS-Electre-1"}
