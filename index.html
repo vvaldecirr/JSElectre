@@ -35,19 +35,24 @@
 <div id="table"></div>
 
 <script>
+	var lines, cols;
+	
+	// script that get the size of matrix entry and generate the performance matrix
 	$( "#dimentions" ).submit(function( event ) {
-		var lines = $("#rows").val();
-		var cols = $("#cols").val();
-		
+		lines = $("#rows").val();
+		cols = $("#cols").val();
+
 		$("#matrix-input").html("");
+		
+		$("#matrix-input").append("<input id='concordance' type='number' max='1' min='0'> ^c<br /><input id='discordance' type='number' max='1' min='0'> ^d<br /><br />");
 		
 		for (i=0; i<lines; i++) {
 			for (j=0; j<cols; j++) {
-				$("#matrix-input").append("<input id='pmvalues["+i+"]["+j+"]' type='number' value='0'>");
-				console.log("pmvalues["+i+"]["+j+"]");
+				$("#matrix-input").append("<input id='pmvaluesl"+i+"c"+j+"' type='number' value='0'>");
+				//console.log("pmvaluesl"+i+"c"+j);
 			}
 			$("#matrix-input").append("<br />");
-			console.log(">>>");
+			//console.log(">>>");
 		}
 		
 		$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");
@@ -55,11 +60,21 @@
 		event.preventDefault();
 	});
 
+	// script that get the values of performance matrix and full fill the other matrix already souwing the results
 	$( "#matrix" ).submit(function( event ) {
-		console.log($("#pmvalues[0][0]").val());
+		for (i=0; i<lines; i++) {
+			for (j=0; j<cols; j++) {
+				//console.log(($("#pmvaluesl"+i+"c"+j).val())+" / pmvalues["+i+"]["+j+"]");
+				
+			}
+			//console.log(">>>");
+		}
 		
 		event.preventDefault();
 	});
+	
+	
+	
 //	$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
 //	document.getElementById("demo").innerHTML = text;
 //	document.write(text);
