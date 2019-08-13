@@ -11,15 +11,61 @@
 </head>
 <body>
 
-<div id="demo"></div>
-<script type="text/javascript">
-	$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
-		//document.getElementById("demo").innerHTML = text;
-		//document.write(text);
+<!-- <center><h3>JSElectre 1.0</h3></center>
+<center><h5>Valdecir S. Pereira</h5></center> -->
+
+<fieldset>
+    <legend>size of matrix:</legend>
+	<form id="dimentions" action="index.html">
+		lines:<br />
+		<input id="rows" type="number" max="20" min="1"><br />
+		rows:<br />
+		<input id="cols" type="number" max="20" min="1">
+		<input type="submit" value="generate">
+	</form>
+</fieldset>
+
+<fieldset>
+    <legend>performance matrix:</legend>
+		<form id="matrix" action="index.html">
+			<div id="matrix-input"></div>
+		</form>
+</fieldset>
+
+<div id="table"></div>
+
+<script>
+	$( "#dimentions" ).submit(function( event ) {
+		var lines = $("#rows").val();
+		var cols = $("#cols").val();
 		
-		var electre = new Matrix(5, 5);
-		electre.printMatrix();
+		$("#matrix-input").html("");
+		
+		for (i=0; i<lines; i++) {
+			for (j=0; j<cols; j++) {
+				$("#matrix-input").append("<input id='pmvalues["+i+"]["+j+"]' type='number' value='0'>");
+				console.log("pmvalues["+i+"]["+j+"]");
+			}
+			$("#matrix-input").append("<br />");
+			console.log(">>>");
+		}
+		
+		$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");
+		
+		event.preventDefault();
 	});
+
+	$( "#matrix" ).submit(function( event ) {
+		console.log($("#pmvalues[0][0]").val());
+		
+		event.preventDefault();
+	});
+//	$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
+//	document.getElementById("demo").innerHTML = text;
+//	document.write(text);
+//	var electre = new Matrix(5, 5);
+//	electre.printMatrix();
+//});
 </script>
 
 <a href="eleva/index.htm">elevator</a> <br />

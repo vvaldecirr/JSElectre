@@ -1,16 +1,24 @@
 @CHARSET "UTF-8";
-*{
+* {
 	margin: 0;
 	padding: 0;
 }
-body{
+
+body {
 	background-color: #e9f3ff;
 }
-#predio{
-	border: #000 3px solid;
-	width: 300px;
-	height: 696px;
-	position: absolute;
-	bottom: 0px;
-	left: 30px;
+
+#matrix input {
+	width: 50px;
+	margin: 1px;
+	text-align: center;
+}
+
+fieldset {
+	padding: 10px;
+	margin: 10px;
+}
+
+#pmatrixbtn {
+	width: 100px;
 }
