@@ -8,7 +8,7 @@ body {
 	background-color: #e9f3ff;
 }
 
-#matrix input {
+.inputmtx {
 	width: 50px;
 	margin: 1px;
 	text-align: center;
@@ -17,6 +17,7 @@ body {
 fieldset {
 	padding: 10px;
 	margin: 10px;
+	background-color: #d8e2ee;
 }
 
 #pmatrixbtn {

@@ -17,11 +17,16 @@
 <fieldset>
     <legend>size of matrix:</legend>
 	<form id="dimentions" action="index.html">
-		lines:<br />
-		<input id="rows" type="number" max="20" min="1"><br />
-		rows:<br />
-		<input id="cols" type="number" max="20" min="1">
-		<input type="submit" value="generate">
+		<table border="0">
+			<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td>
+				criteries:<br />
+				<input id="cols" type="number" max="20" min="1" placeholder="nº">
+			</td></tr>
+			<tr><td>
+				elements:<br />
+				<input id="rows" type="number" max="20" min="1" placeholder="nº"><br />
+			</td><td align="right" valign="bottom"><input type="submit" value="generate"></td></tr>
+		</table>
 	</form>
 </fieldset>
 
@@ -35,20 +40,20 @@
 <div id="table"></div>
 
 <script>
-	var lines, cols;
+	var lines, cols, PMatrix;
 	
 	// script that get the size of matrix entry and generate the performance matrix
 	$( "#dimentions" ).submit(function( event ) {
-		lines = $("#rows").val();
+		rows = $("#rows").val();
 		cols = $("#cols").val();
 
 		$("#matrix-input").html("");
 		
-		$("#matrix-input").append("<input id='concordance' type='number' max='1' min='0'> ^c<br /><input id='discordance' type='number' max='1' min='0'> ^d<br /><br />");
+		$("#matrix-input").append("<input id='concordance' type='number' step='0.01' max='1' min='0'> ^c<br /><input id='discordance' type='number' step='0.01' max='1' min='0'> ^d<br /><br />");
 		
-		for (i=0; i<lines; i++) {
+		for (i=0; i<rows; i++) {
 			for (j=0; j<cols; j++) {
-				$("#matrix-input").append("<input id='pmvaluesl"+i+"c"+j+"' type='number' value='0'>");
+				$("#matrix-input").append("<input class='inputmtx' id='pmvaluesl"+i+"c"+j+"' type='number' value='0'>");
 				//console.log("pmvaluesl"+i+"c"+j);
 			}
 			$("#matrix-input").append("<br />");
@@ -62,7 +67,11 @@
 
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results
 	$( "#matrix" ).submit(function( event ) {
-		for (i=0; i<lines; i++) {
+		PMatrix = [rows][cols];
+		
+		//console.log(PMatrix[0].length);
+		
+		for (i=0; i<rows; i++) {
 			for (j=0; j<cols; j++) {
 				//console.log(($("#pmvaluesl"+i+"c"+j).val())+" / pmvalues["+i+"]["+j+"]");
 				
