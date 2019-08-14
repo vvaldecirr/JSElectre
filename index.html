@@ -10,9 +10,12 @@
 </head>
 <body>
 
-<!-- <center><h3>JSElectre 1.0</h3></center>
-<center><h5>Valdecir S. Pereira</h5></center> -->
-
+<!-- 
+ <center><h3>JSElectre 1.0</h3></center>
+<center><h5>Instituto Militar de Engenharia</h5></center>
+<center><h5><a href="mailto:vvaldecirr@hotmail.com">Valdecir S. Pereira</a></h5></center>
+-->
+ 
 <fieldset>
     <legend>size of matrix:</legend>
 	<form id="dimentions" action="index.html">
@@ -40,54 +43,56 @@
 
 <script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
 <script>
-	var text, rows, cols, concordance, discordance, pmatrix, maxdelta;
+	var text, rows, cols, concordance, discordance, i, j, k, l, pmatrix;
 	var elementnames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
 	var criterianames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
 
 	// script that get the size of matrix entry and generate the performance matrix
 	$( "#dimentions" ).submit(function( event ) {
+
 		rows = $("#rows").val();
 		cols = $("#cols").val();
-		
-		//var pmatrix = [rows];
 
 		$("#matrix-input").html("");
 		
 		$("#matrix-input").append("<input class='inputmtx' id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input class='inputmtx' id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
 
-		// fill array pmvalues[i][j] named "pmvalueslicj"
-		text = "<table border='1'>";
+		// fill array pmvalues[i][j] named "pmvaluesl_c_"
+		text = "<table border='0'>";
 
 		for (i=0; i<rows; i++) {
 			text += "<tr>";
 
 			if (i==0) // verifying if it's the first cell of table for keep it empty 
 				text += "<td></td>";
+
 			if (i==0) { // filling with titles
 				for (k=0; k<cols; k++)
 					text += "<td align='center'>"+criterianames[k]+"</td>";
 			} else {
-				
 				for (j=0; j<cols; j++) {
-
-					
-					
-					
 					if (j==0) {
-						text += "<td align='center'>"+elementnames[i-1]+"</td>";
+						text += "<td align='center'>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
 					} else
-						text += "<td><input class='inputmtx' id='pmvaluesl"+i+"c"+j+"' type='number' value='0'></td>";
-
-						
-						
-					
-				} 
-					
+						text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
+				}
 			}
+
 			text += "</tr>";
-			
-			//console.log(">>>");
+
 		}
+
+		text += "<tr>";
+		
+		for (l=0; l<cols; l++) {
+			if (l==0) {
+				text += "<td align='center'>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+			} else
+				text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+		} 
+
+		text += "<tr>";
+
 		text += "</table>";
 
 		$("#matrix-input").append(text);
@@ -99,23 +104,57 @@
 
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
+		var max = [];		
+		var min = [];		
+		var maux, minx, maxdelta;
+		
 		// getting overclassification indexes
 		concordance = ($("#concordance").val());
 		discordance = ($("#discordance").val());
 
 		// criating a multidimentional array as pmatrix with form values
 		pmatrix = [];
-		for (var i = 0; i < rows; i++) {
+		for (i=0; i<rows; i++) {
 			pmatrix[i] = new Array(); // elements
 			
-			for (var j = 0; j < cols; j++) {
-				pmatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val()); // criteries
-			}
+			for (j=0; j<cols; j++) 
+				pmatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val()*1); // criteries
 		}
 		console.log(pmatrix);
 		
-		// calculate the maxdelta
+		// calculate the max
+		for (k=0; k<cols; k++) {
+			for (l=0; l<rows; l++) {
+				if (l==0)
+					maux = pmatrix[l][k];
+				else if (maux < pmatrix[l][k])
+					maux = pmatrix[l][k];
+			}
+			max[k] = maux;
+		}
 		
+		// calculate the min
+		for (k=0; k<cols; k++) {
+			for (l=0; l<rows; l++) {
+				if (l==0)
+					minx = pmatrix[l][k];
+				else if (minx > pmatrix[l][k])
+					minx = pmatrix[l][k];
+			}
+			min[k] = minx;
+		}
+		
+		// calculate the maxdelta
+		for (k=0; k<cols; k++) {
+			if (k==0)
+				maxdelta = max[k]-min[k];
+			else if ( maxdelta < (max[k]-min[k]) )
+				maxdelta = max[k]-min[k];
+		}
+		
+		console.log(max);
+		console.log(min);
+		console.log(maxdelta);
 		
 		event.preventDefault();
 	});
