@@ -4,7 +4,7 @@
 function Matrix(lines, rows){
 	//Atributes
 	this.AttributeNames			= [lines];			// group of integrants to be classified
-	this.CriterieaNames			= [rows];			// list of criterias to be analized
+	this.CriteriaNames			= [rows];			// list of criterias to be analized
 	this.PerformanceStructure	= [lines][rows];	// Performance Matrix
 	this.ConcordanceStructure	= [lines][rows];	// Concordance Matrix
 	this.DiscordanceStructure	= [lines][rows];	// Discordance Matrix

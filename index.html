@@ -5,8 +5,7 @@
 <meta name="author" content="Valdecir S. Pereira">
 <title>JSElectre 1.0</title>
 <link rel="stylesheet" href="view/css/style.css" type="text/css" media="screen" />
-<script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="model/Matrix.js"></script>
+<!-- <script type="text/javascript" src="model/Matrix.js"></script> -->
 <!-- <script type="text/javascript" src="control/Controlador.js"></script> -->
 </head>
 <body>
@@ -20,11 +19,11 @@
 		<table border="0">
 			<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td align="right" valign="top">
 				criteries:<br />
-				<input id="cols" type="number" max="20" min="1" placeholder="nº">
+				<input class='inputmtx' id="cols" type="number" max="26" min="1" placeholder="nº">
 			</td></tr>
 			<tr><td>
 				elements:<br />
-				<input id="rows" type="number" max="20" min="1" placeholder="nº"><br />
+				<input class='inputmtx' id="rows" type="number" max="26" min="1" placeholder="nº"><br />
 			</td><td align="right" valign="bottom"><input type="submit" value="   new   "></td></tr>
 		</table>
 	</form>
@@ -39,30 +38,60 @@
 
 <div id="table"></div>
 
+<script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
 <script>
-	var text, lines, cols, concordance, discordance;
-	
+	var text, rows, cols, concordance, discordance, pmatrix, maxdelta;
+	var elementnames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
+	var criterianames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
+
 	// script that get the size of matrix entry and generate the performance matrix
 	$( "#dimentions" ).submit(function( event ) {
 		rows = $("#rows").val();
 		cols = $("#cols").val();
 		
-		//var PMatrix = [rows];
+		//var pmatrix = [rows];
 
 		$("#matrix-input").html("");
 		
-		$("#matrix-input").append("<input id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
-		
+		$("#matrix-input").append("<input class='inputmtx' id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input class='inputmtx' id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
+
 		// fill array pmvalues[i][j] named "pmvalueslicj"
+		text = "<table border='1'>";
+
 		for (i=0; i<rows; i++) {
-			for (j=0; j<cols; j++) {
-				$("#matrix-input").append("<input class='inputmtx' id='pmvaluesl"+i+"c"+j+"' type='number' value='0'>");
-				//console.log("pmvaluesl"+i+"c"+j);
+			text += "<tr>";
+
+			if (i==0) // verifying if it's the first cell of table for keep it empty 
+				text += "<td></td>";
+			if (i==0) { // filling with titles
+				for (k=0; k<cols; k++)
+					text += "<td align='center'>"+criterianames[k]+"</td>";
+			} else {
+				
+				for (j=0; j<cols; j++) {
+
+					
+					
+					
+					if (j==0) {
+						text += "<td align='center'>"+elementnames[i-1]+"</td>";
+					} else
+						text += "<td><input class='inputmtx' id='pmvaluesl"+i+"c"+j+"' type='number' value='0'></td>";
+
+						
+						
+					
+				} 
+					
 			}
-			$("#matrix-input").append("<br />");
+			text += "</tr>";
+			
 			//console.log(">>>");
 		}
-		
+		text += "</table>";
+
+		$("#matrix-input").append(text);
+
 		$("#matrix-input").append("<br /><input id='pmatrixbtn' type='submit' value='calculate'>");
 		
 		event.preventDefault();
@@ -70,32 +99,28 @@
 
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
+		// getting overclassification indexes
 		concordance = ($("#concordance").val());
 		discordance = ($("#discordance").val());
-		
-		for (i=0; i<rows; i++) {
-			for (j=0; j<cols; j++) {
-				PMatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val());
-				
-				//console.log("pmvaluesl"+i+"c"+j+" = "+($("#pmvaluesl"+i+"c"+j).val()));
+
+		// criating a multidimentional array as pmatrix with form values
+		pmatrix = [];
+		for (var i = 0; i < rows; i++) {
+			pmatrix[i] = new Array(); // elements
+			
+			for (var j = 0; j < cols; j++) {
+				pmatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val()); // criteries
 			}
-			console.log(PMatrix[i][j]);
 		}
+		console.log(pmatrix);
+		
+		// calculate the maxdelta
+		
 		
 		event.preventDefault();
 	});
-		
-	
-	
-//	$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
-//	document.getElementById("demo").innerHTML = text;
-//	document.write(text);
-//	var electre = new Matrix(5, 5);
-//	electre.printMatrix();
-//});
 </script>
 
-<a href="~MODELAGEM/eleva/index.htm">elevator</a> <br />
 <a href="view/arbor/demos/index.html#/js-electre-1">graph</a> 
 
 </body>
