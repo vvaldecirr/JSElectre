@@ -18,14 +18,14 @@
     <legend>size of matrix:</legend>
 	<form id="dimentions" action="index.html">
 		<table border="0">
-			<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td>
+			<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td align="right" valign="top">
 				criteries:<br />
 				<input id="cols" type="number" max="20" min="1" placeholder="nº">
 			</td></tr>
 			<tr><td>
 				elements:<br />
 				<input id="rows" type="number" max="20" min="1" placeholder="nº"><br />
-			</td><td align="right" valign="bottom"><input type="submit" value="generate"></td></tr>
+			</td><td align="right" valign="bottom"><input type="submit" value="   new   "></td></tr>
 		</table>
 	</form>
 </fieldset>
@@ -40,17 +40,20 @@
 <div id="table"></div>
 
 <script>
-	var lines, cols, PMatrix;
+	var text, lines, cols, concordance, discordance;
 	
 	// script that get the size of matrix entry and generate the performance matrix
 	$( "#dimentions" ).submit(function( event ) {
 		rows = $("#rows").val();
 		cols = $("#cols").val();
+		
+		//var PMatrix = [rows];
 
 		$("#matrix-input").html("");
 		
-		$("#matrix-input").append("<input id='concordance' type='number' step='0.01' max='1' min='0'> ^c<br /><input id='discordance' type='number' step='0.01' max='1' min='0'> ^d<br /><br />");
+		$("#matrix-input").append("<input id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
 		
+		// fill array pmvalues[i][j] named "pmvalueslicj"
 		for (i=0; i<rows; i++) {
 			for (j=0; j<cols; j++) {
 				$("#matrix-input").append("<input class='inputmtx' id='pmvaluesl"+i+"c"+j+"' type='number' value='0'>");
@@ -60,28 +63,28 @@
 			//console.log(">>>");
 		}
 		
-		$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");
+		$("#matrix-input").append("<br /><input id='pmatrixbtn' type='submit' value='calculate'>");
 		
 		event.preventDefault();
 	});
 
-	// script that get the values of performance matrix and full fill the other matrix already souwing the results
+	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
-		PMatrix = [rows][cols];
-		
-		//console.log(PMatrix[0].length);
+		concordance = ($("#concordance").val());
+		discordance = ($("#discordance").val());
 		
 		for (i=0; i<rows; i++) {
 			for (j=0; j<cols; j++) {
-				//console.log(($("#pmvaluesl"+i+"c"+j).val())+" / pmvalues["+i+"]["+j+"]");
+				PMatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val());
 				
+				//console.log("pmvaluesl"+i+"c"+j+" = "+($("#pmvaluesl"+i+"c"+j).val()));
 			}
-			//console.log(">>>");
+			console.log(PMatrix[i][j]);
 		}
 		
 		event.preventDefault();
 	});
-	
+		
 	
 	
 //	$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
@@ -92,7 +95,7 @@
 //});
 </script>
 
-<a href="eleva/index.htm">elevator</a> <br />
+<a href="~MODELAGEM/eleva/index.htm">elevator</a> <br />
 <a href="view/arbor/demos/index.html#/js-electre-1">graph</a> 
 
 </body>
