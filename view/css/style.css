@@ -5,7 +5,23 @@
 }
 
 body {
-	background-color: #e9f3ff;
+	background-color: #d5e3ed;
+}
+
+a:link {
+  color: #fff;
+}
+
+a:visited {
+  color: #ccc;
+}
+
+a:hover {
+  color: #55f;
+}
+
+a:active {
+  color: yellow;
 }
 
 .inputmtx {
@@ -17,9 +33,14 @@ body {
 fieldset {
 	padding: 10px;
 	margin: 10px;
-	background-color: #d8e2ee;
+	background-color: #c6dbea;
 }
 
 #pmatrixbtn {
 	width: 100px;
+}
+
+#header tr {
+	background-color: #1279c1;
+	color: #fff;
 }

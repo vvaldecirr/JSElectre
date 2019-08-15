@@ -12,24 +12,24 @@
 
 <!-- 
 -->
-<table border="0" width="100%">
+<table border="0" width="100%" id="header" cellspacing="0">
 	<tr>
 		<td width="100"><img alt="IME" src="view/img/ime.png" width="100" height="120"></td>
 		<td align="center">
-			<h3>JSElectre 1.0</h3>
-			<h4>Instituto Militar de Engenharia</h4>
-			<h5>Mestrado em Sistemas de Informação</h5>
+			<h2>JSElectre 1.0</h2>
+			<h3>Instituto Militar de Engenharia</h3>
+			<h4>Mestrado em Sistemas de Informação</h4>
 			<h5>Desenvolvimento de Plataformas Conputacionais de Apoio a Tomada de Decisão</h5>
 			<h5>Professor: Marcos Santos / Aluno: <a href="mailto:vvaldecirr@hotmail.com">Valdecir S. Pereira</a></h5>
 		</td>
-		<td width="100"></td>
+		<td width="100"><img alt="IME" src="view/img/language.png" width="100" height="120"></td>
 	</tr>
 </table>
- 
+
 <fieldset>
     <legend>size of matrix:</legend>
 	<form id="dimentions" action="index.html">
-		<table border="0">
+		<table border="0" width="100">
 			<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td align="right" valign="top">
 				criteries:<br />
 				<input class='inputmtx' id="cols" type="number" max="26" min="1" placeholder="nº">
@@ -53,7 +53,7 @@
 
 <script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
 <script>
-	var text, rows, cols, concordance, discordance, i, j, k, l, pmatrix;
+	var text, rows, cols, pmatrix, cmatrix, dmatrix, concordance, discordance, i, j, k, l, weight;
 	var elementnames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
 	var criterianames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
 
@@ -92,8 +92,6 @@
 
 		}
 
-		text += "<tr>";
-		
 		for (l=0; l<cols; l++) {
 			if (l==0) {
 				text += "<td align='center'>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
@@ -101,28 +99,36 @@
 				text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
 		} 
 
+		//last line
 		text += "<tr>";
+		for (l=0; l<cols; l++) {
+			if (l==0) {
+				text += "<td align='center' height='40'>weight: </td><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+			} else
+				text += "<td height='40'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+		} 
+		text += "</tr>";
 
 		text += "</table>";
 
 		$("#matrix-input").append(text);
 
-		$("#matrix-input").append("<br /><input id='pmatrixbtn' type='submit' value='calculate'>");
+		$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");
 		
 		event.preventDefault();
 	});
 
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
-		var max = [];		
-		var min = [];		
+		var max		= [];		
+		var min		= [];
 		var maux, minx, maxdelta;
 		
 		// getting overclassification indexes
 		concordance = ($("#concordance").val());
 		discordance = ($("#discordance").val());
 
-		// criating a multidimentional array as pmatrix with form values
+		// criating a multidimentional performance array as pmatrix with form values
 		pmatrix = [];
 		for (i=0; i<rows; i++) {
 			pmatrix[i] = new Array(); // elements
@@ -131,6 +137,14 @@
 				pmatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val()*1); // criteries
 		}
 		console.log(pmatrix);
+		
+		// filling the weight array
+		weight	= [];
+		for (k=0; k<cols; k++) {
+			//console.log($("#pmvaluesl"+rows+"c"+k).val()*1);
+			weight[k] = $("#pmvaluesl"+rows+"c"+k).val()*1;
+		}
+		console.log("weight: "+weight);
 		
 		// calculate the max
 		for (k=0; k<cols; k++) {
@@ -161,13 +175,32 @@
 			else if ( maxdelta < (max[k]-min[k]) )
 				maxdelta = max[k]-min[k];
 		}
+		console.log("maxdelta: "+maxdelta);
 		
-		console.log(maxdelta);
+		// calculatind the multidimentional concordance array as cmatrix from pmatrix array
+		cmatrix = [];
+		for (i=0; i<rows; i++) {
+			cmatrix[i] = new Array(); // elements
+			
+			for (j=0; j<cols; j++) 
+				cmatrix[i][j] = concordCel(i, j);
+		}
+		console.log(pmatrix);
+		
+		// this function return the value of each concordance cell from performance's matrix ROW and COLUMN information
+		function concordCel (var row, var col) {
+			if (row==col)
+				return "-";
+			else {
+				pmatrix[row][col]
+				return;				
+			}
+		}
 		
 		event.preventDefault();
 	});
 </script>
-
+ 
 <a href="view/arbor/demos/index.html#/js-electre-1">graph</a> 
 
 </body>
