@@ -58,13 +58,13 @@
 							<div id="matrix-input"></div>
 						</form>
 				</fieldset>	
+			</td></tr></table>
 
-				<table border="0"><tr><td>
-					<fieldset>
-					    <legend>discordance matrix:</legend>
-						<div id="discordance-matrix"></div>
-					</fieldset>
-				</td></tr></table>
+			<table border="0"><tr><td>
+				<fieldset>
+				    <legend>dinamic graph:</legend>
+					<div id="graph-table"></div>
+				</fieldset>
 			</td></tr></table>
 		</td>
 		<td align="left">
@@ -77,18 +77,15 @@
 			
 			<table border="0"><tr><td>
 				<fieldset>
-				    <legend>credibility matrix:</legend>
-					<div id="credibility-matrix"></div>
+				    <legend>discordance matrix:</legend>
+					<div id="discordance-matrix"></div>
 				</fieldset>
 			</td></tr></table>
-		</td>
-	</tr>
-	<tr>
-		<td align="center" colspan="2">
+
 			<table border="0"><tr><td>
 				<fieldset>
-				    <legend>dinamic graph:</legend>
-					<div id="graph-table"></div>
+				    <legend>credibility matrix:</legend>
+					<div id="credibility-matrix"></div>
 				</fieldset>
 			</td></tr></table>
 		</td>
@@ -113,21 +110,21 @@
 		$("#matrix-input").append("<input class='inputmtx' id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input class='inputmtx' id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
 
 		// fill array pmvalues[i][j] named "pmvaluesl_c_"
-		text = "<table border='0'>";
+		text = "<table border='0' id='pmatrix-table'>";
 
 		for (i=0; i<rows; i++) {
 			text += "<tr>";
 
 			if (i==0) // verifying if it's the first cell of table for keep it empty 
-				text += "<td></td>";
+				text += "<th></th>";
 
 			if (i==0) { // filling with titles
 				for (k=0; k<cols; k++)
-					text += "<td align='center'>"+criterianames[k]+"</td>";
+					text += "<th align='center'>"+criterianames[k]+"</th>";
 			} else {
 				for (j=0; j<cols; j++) {
 					if (j==0) {
-						text += "<td align='center'>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
+						text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
 					} else
 						text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
 				}
@@ -139,7 +136,7 @@
 
 		for (l=0; l<cols; l++) {
 			if (l==0) {
-				text += "<td align='center'>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+				text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
 			} else
 				text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
 		} 
@@ -148,7 +145,7 @@
 		text += "<tr>";
 		for (l=0; l<cols; l++) {
 			if (l==0) {
-				text += "<td align='center' height='40'>weight: </td><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+				text += "<th align='center' height='40'>weight: </tH><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
 			} else
 				text += "<td height='40'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
 		} 

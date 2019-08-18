@@ -86,7 +86,7 @@ function concordCel(row, col) {
 			
 			sumweight += weight[k];
 		}
-		return aux/sumweight;				
+		return parseFloat((aux/sumweight).toFixed(2)); // keep just 2 decinal digits			
 	}
 }
 
@@ -108,7 +108,7 @@ function discordCel(row, col) {
 			if (r > aux)
 				aux = r;
 		}
-		return aux;				
+		return parseFloat((aux).toFixed(2)); // keep just 2 decinal digits				
 	}
 }
 
@@ -143,7 +143,7 @@ function showConcordanceMatrixTable() {
 		cmatrix[i] = new Array(); // elements
 		
 		for (j=0; j<cols; j++) 
-			cmatrix[i][j] = concordCel(i, j);//console.log(concordCel(i, j));
+			cmatrix[i][j] = concordCel(i, j);
 	}
 	console.log("cmatrix");
 	console.log(cmatrix);
@@ -154,17 +154,17 @@ function showConcordanceMatrixTable() {
 		cmatrixhtml += "<tr>";
 
 		if (i==0) // verifying if it's the first cell of table for keep it empty 
-			cmatrixhtml += "<td></td>";
+			cmatrixhtml += "<th></th>";
 
 		if (i==0) { // filling with titles
 			for (k=0; k<cols; k++)
-				cmatrixhtml += "<td>"+elementnames[k]+"</td>";
+				cmatrixhtml += "<th>"+elementnames[k]+"</th>";
 		} else {
 			for (j=0; j<cols; j++) {
 				if (j==0) {
-					cmatrixhtml += "<td>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+cmatrix[(i-1)][j]+"' disabled></td>";
+					cmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+cmatrix[(i-1)][j]+"</td>";
 				} else
-					cmatrixhtml += "<td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+cmatrix[(i-1)][j]+"' disabled></td>";
+					cmatrixhtml += "<td>"+cmatrix[(i-1)][j]+"</td>";
 			}
 		}
 		
@@ -174,9 +174,9 @@ function showConcordanceMatrixTable() {
 
 	for (l=0; l<cols; l++) {
 		if (l==0) {
-			cmatrixhtml += "<td>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+cmatrix[(i-1)][l]+"' disabled></td>";
+			cmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+cmatrix[(i-1)][l]+"</td>";
 		} else
-			cmatrixhtml += "<td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+cmatrix[(i-1)][l]+"' disabled></td>";
+			cmatrixhtml += "<td>"+cmatrix[(i-1)][l]+"</td>";
 	} 
 	cmatrixhtml += "</table>";
 
@@ -205,17 +205,17 @@ function showDiscordanceMatrixTable() {
 		dmatrixhtml += "<tr>";
 
 		if (i==0) // verifying if it's the first cell of table for keep it empty 
-			dmatrixhtml += "<td></td>";
+			dmatrixhtml += "<th></th>";
 
 		if (i==0) { // filling with titles
 			for (k=0; k<cols; k++)
-				dmatrixhtml += "<td>"+elementnames[k]+"</td>";
+				dmatrixhtml += "<th>"+elementnames[k]+"</th>";
 		} else {
 			for (j=0; j<cols; j++) {
 				if (j==0) {
-					dmatrixhtml += "<td>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+dmatrix[(i-1)][j]+"' disabled></td>";
+					dmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+dmatrix[(i-1)][j]+"</td>";
 				} else
-					dmatrixhtml += "<td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+dmatrix[(i-1)][j]+"' disabled></td>";
+					dmatrixhtml += "<td>"+dmatrix[(i-1)][j]+"</td>";
 			}
 		}
 		
@@ -225,9 +225,9 @@ function showDiscordanceMatrixTable() {
 
 	for (l=0; l<cols; l++) {
 		if (l==0) {
-			dmatrixhtml += "<td>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+dmatrix[(i-1)][l]+"' disabled></td>";
+			dmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+dmatrix[(i-1)][l]+"</td>";
 		} else
-			dmatrixhtml += "<td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+dmatrix[(i-1)][l]+"' disabled></td>";
+			dmatrixhtml += "<td>"+dmatrix[(i-1)][l]+"</td>";
 	} 
 	dmatrixhtml += "</table>";
 
@@ -256,17 +256,17 @@ function showCredibilityMatrixTable() {
 		smatrixhtml += "<tr>";
 
 		if (i==0) // verifying if it's the first cell of table for keep it empty 
-			smatrixhtml += "<td></td>";
+			smatrixhtml += "<th></th>";
 
 		if (i==0) { // filling with titles
 			for (k=0; k<cols; k++)
-				smatrixhtml += "<td>"+elementnames[k]+"</td>";
+				smatrixhtml += "<th>"+elementnames[k]+"</th>";
 		} else {
 			for (j=0; j<cols; j++) {
 				if (j==0) {
-					smatrixhtml += "<td>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+smatrix[(i-1)][j]+"' disabled></td>";
+					smatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+smatrix[(i-1)][j]+"</td>";
 				} else
-					smatrixhtml += "<td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+smatrix[(i-1)][j]+"' disabled></td>";
+					smatrixhtml += "<td>"+smatrix[(i-1)][j]+"</td>";
 			}
 		}
 		
@@ -276,9 +276,9 @@ function showCredibilityMatrixTable() {
 
 	for (l=0; l<cols; l++) {
 		if (l==0) {
-			smatrixhtml += "<td>"+elementnames[i-1]+"</td><td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+smatrix[(i-1)][l]+"' disabled></td>";
+			smatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+smatrix[(i-1)][l]+"</td>";
 		} else
-			smatrixhtml += "<td><input class='inputmtx' id='concordance' type='number' step='0.01' value='"+smatrix[(i-1)][l]+"' disabled></td>";
+			smatrixhtml += "<td>"+smatrix[(i-1)][l]+"</td>";
 	} 
 	smatrixhtml += "</table>";
 

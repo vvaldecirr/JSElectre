@@ -47,6 +47,15 @@ fieldset {
 
 #dmatrix-table td, #cmatrix-table td, #smatrix-table td{
 	width: 50px;
-	margin: 1px;
+	padding: 1px;
 	text-align: center;
+    background-color: aliceblue;
+}
+
+#pmatrix-table th, #dmatrix-table th, #cmatrix-table th, #smatrix-table th{
+	padding: 1px;
+	text-align: center;
+    background-color: cadetblue;
+    color: #fff;
+    font-family: arial;
 }
