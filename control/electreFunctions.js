@@ -284,3 +284,51 @@ function showCredibilityMatrixTable() {
 
 	$("#credibility-matrix").append(smatrixhtml);
 }
+
+function showTeamTable() {
+	
+	teamhtml = "<table id='team-table' border='0' celpadding='2'>";
+	// core line
+	teamhtml += "<tr>";	
+	teamhtml += "<th align='right'>core: </th>";
+	teamhtml += "<td>";
+	for (j=0; j<rows; j++) {
+		var aux = 0;
+		
+		for (k=0; k<cols; k++) {
+			if (smatrix[j][k] == 1)
+				aux += smatrix[j][k];
+		}
+	
+		if (aux>0)
+			teamhtml += "["+elementnames[j]+"]  ";
+	}
+	teamhtml += "</td>";
+	teamhtml += "</tr>";
+	// dominated line
+	teamhtml += "<tr>";	
+	teamhtml += "<th align='right'>dominated: </th>";
+	teamhtml += "<td>";
+	for (j=0; j<rows; j++) {
+		var aux = 0;
+		
+		for (k=0; k<cols; k++) {
+			if (smatrix[k][j] == 1) {
+				aux += smatrix[k][j];
+			}
+		}
+		// console.log(aux);
+	
+		if (aux>0) {
+			teamhtml += "["+elementnames[j]+"]  ";
+
+			console.log(elementnames[j]);
+		}
+	}
+	teamhtml += "</td>";
+	teamhtml += "</tr>";
+
+	teamhtml += "</table>";	
+
+	$("#team-table").append(teamhtml);
+}
