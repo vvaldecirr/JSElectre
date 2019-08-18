@@ -33,7 +33,7 @@ a:active {
 fieldset {
 	padding: 10px;
 	margin: 10px;
-	background-color: #c6dbea;
+	background-color: #b5dbea;
 }
 
 #pmatrixbtn {
@@ -43,4 +43,10 @@ fieldset {
 #header tr {
 	background-color: #1279c1;
 	color: #fff;
+}
+
+#dmatrix-table td, #cmatrix-table td, #smatrix-table td{
+	width: 50px;
+	margin: 1px;
+	text-align: center;
 }

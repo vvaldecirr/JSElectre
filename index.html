@@ -22,40 +22,85 @@
 			<h5>Computational Platforms Development to Decision Taking Supports</h5>
 			<h5>Professor: Marcos Santos / Student: <a href="mailto:vvaldecirr@hotmail.com">Valdecir S. Pereira</a> - (update: 2019)</h5>
 		</td>
-		<td width="100"><img alt="HTML - JS - CSS" src="view/img/language.png" width="100" height="120"></td>
+		<td width="100" bgcolor="#b5dbea"><img alt="HTML - JS - CSS" src="view/img/language.png" width="100" height="120"></td>
 	</tr>
 </table>
 
-<fieldset>
-    <legend>size of matrix:</legend>
-	<form id="dimentions" action="index.html">
-		<table border="0" width="100">
-			<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td align="right" valign="top">
-				criteries:<br />
-				<input class='inputmtx' id="cols" type="number" max="26" min="1" placeholder="nº">
-			</td></tr>
-			<tr><td>
-				elements:<br />
-				<input class='inputmtx' id="rows" type="number" max="26" min="1" placeholder="nº"><br />
-			</td><td align="right" valign="bottom"><input type="submit" value="   new   "></td></tr>
-		</table>
-	</form>
-</fieldset>
+<table border="0" width="100%">
+	<tr>
+		<td align="center" colspan="2">
+			<table border="0"><tr><td>
+				<fieldset>
+				    <legend>size of matrix:</legend>
+					<form id="dimentions" action="index.html">
+						<table border="0" width="100">
+							<tr><td><img src="view/img/arrows.png" width="50" height="50" /></td><td align="right" valign="top">
+								criteries:<br />
+								<input class='inputmtx' id="cols" type="number" max="26" min="1" placeholder="nº">
+							</td></tr>
+							<tr><td>
+								elements:<br />
+								<input class='inputmtx' id="rows" type="number" max="26" min="1" placeholder="nº"><br />
+							</td><td align="right" valign="bottom"><input type="submit" value="   new   "></td></tr>
+						</table>
+					</form>
+				</fieldset>
+			</td></tr></table>
+		</td>
+	</tr>
+	
+	<tr>
+		<td align="right">
+			<table border="0"><tr><td>
+				<fieldset>
+				    <legend>performance matrix:</legend>
+						<form id="matrix" action="index.html">
+							<div id="matrix-input"></div>
+						</form>
+				</fieldset>	
 
-<fieldset>
-    <legend>performance matrix:</legend>
-		<form id="matrix" action="index.html">
-			<div id="matrix-input"></div>
-		</form>
-</fieldset>
-
-<div id="table"></div>
+				<table border="0"><tr><td>
+					<fieldset>
+					    <legend>discordance matrix:</legend>
+						<div id="discordance-matrix"></div>
+					</fieldset>
+				</td></tr></table>
+			</td></tr></table>
+		</td>
+		<td align="left">
+			<table border="0"><tr><td>
+				<fieldset>
+				    <legend>concordance matrix:</legend>
+					<div id="concordance-matrix"></div>
+				</fieldset>
+			</td></tr></table>
+			
+			<table border="0"><tr><td>
+				<fieldset>
+				    <legend>credibility matrix:</legend>
+					<div id="credibility-matrix"></div>
+				</fieldset>
+			</td></tr></table>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" colspan="2">
+			<table border="0"><tr><td>
+				<fieldset>
+				    <legend>dinamic graph:</legend>
+					<div id="graph-table"></div>
+				</fieldset>
+			</td></tr></table>
+		</td>
+	</tr>
+</table>
 
 <script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="control/electreFunctions.js"></script>
 <script>
-	var text, rows, cols, pmatrix, cmatrix, dmatrix, concordance, discordance, i, j, k, l, weight;
-	var elementnames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
-	var criterianames	= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "W", "U", "V", "X", "Y", "Z", ];
+	var text, cmatrixhtml, dmatrixhtml, smatrixhtml, rows, cols, maxdelta, pmatrix, cmatrix, dmatrix, smatrix, concordance, discordance, i, j, k, l, weight;
+	var elementnames	= ["eA", "eB", "eC", "eD", "eE", "eF", "eG", "eH", "eI", "eJ", "eK", "eL", "eM", "eN", "eO", "eP", "eQ", "eR", "eS", "eT", "eW", "eU", "eV", "eX", "eY", "eZ", ];
+	var criterianames	= ["cA", "cB", "cC", "cD", "cE", "cF", "cG", "cH", "cI", "cJ", "cK", "cL", "cM", "cN", "cO", "cP", "cQ", "cR", "cS", "cT", "cW", "cU", "cV", "cX", "cY", "cZ", ];
 
 	// script that get the size of matrix entry and generate the performance matrix
 	$( "#dimentions" ).submit(function( event ) {
@@ -87,9 +132,9 @@
 						text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
 				}
 			}
-
+			
 			text += "</tr>";
-
+			
 		}
 
 		for (l=0; l<cols; l++) {
@@ -120,79 +165,23 @@
 
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
-		var max		= [];		
-		var min		= [];
-		var maux, minx, maxdelta;
+		// show form to filling the perfiormance matrix
+		showPerformanceForm();
 		
-		// getting overclassification indexes
-		concordance = ($("#concordance").val());
-		discordance = ($("#discordance").val());
+		// calculate the maximun delta
+		findMaxDelta();
+		
+		// filling the concordance matrix table
+		$("#concordance-matrix").html("");
+		showConcordanceMatrixTable();
 
-		// criating a multidimentional performance array as pmatrix with form values
-		pmatrix = [];
-		for (i=0; i<rows; i++) {
-			pmatrix[i] = new Array(); // elements
-			
-			for (j=0; j<cols; j++) 
-				pmatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val()*1); // criteries
-		}
+		// filling the concordance matrix table
+		$("#discordance-matrix").html("");
+		showDiscordanceMatrixTable();
 		
-		// filling the weight array
-		weight	= [];
-		for (k=0; k<cols; k++) {
-			//console.log($("#pmvaluesl"+rows+"c"+k).val()*1);
-			weight[k] = $("#pmvaluesl"+rows+"c"+k).val()*1;
-		}
-		
-		// calculate the max
-		for (k=0; k<cols; k++) {
-			for (l=0; l<rows; l++) {
-				if (l==0)
-					maux = pmatrix[l][k];
-				else if (maux < pmatrix[l][k])
-					maux = pmatrix[l][k];
-			}
-			max[k] = maux;
-		}
-		
-		// calculate the min
-		for (k=0; k<cols; k++) {
-			for (l=0; l<rows; l++) {
-				if (l==0)
-					minx = pmatrix[l][k];
-				else if (minx > pmatrix[l][k])
-					minx = pmatrix[l][k];
-			}
-			min[k] = minx;
-		}
-		
-		// calculate the maxdelta
-		for (k=0; k<cols; k++) {
-			if (k==0)
-				maxdelta = max[k]-min[k];
-			else if ( maxdelta < (max[k]-min[k]) )
-				maxdelta = max[k]-min[k];
-		}
-		
-		/*/ calculatind the multidimentional concordance array as cmatrix from pmatrix array
-		cmatrix = [];
-		for (i=0; i<rows; i++) {
-			cmatrix[i] = new Array(); // elements
-			
-			for (j=0; j<cols; j++) 
-				//cmatrix[i][j] = concordCel(i, j);
-		}
-		console.log(pmatrix);
-		
-		// this function return the value of each concordance cell from performance's matrix ROW and COLUMN information
-		function concordCel (row, var col) {
-			if (row==col)
-				return "-";
-			else {
-				pmatrix[row][col]
-				return;				
-			}
-		}*/
+		// filling the credibility matrix table
+		$("#credibility-matrix").html("");
+		showCredibilityMatrixTable();
 		
 		event.preventDefault();
 	});
