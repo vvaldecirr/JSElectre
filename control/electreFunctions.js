@@ -4,6 +4,65 @@
  * @returns
  */
 function showPerformanceForm() {
+	rows = $("#rows").val();
+	cols = $("#cols").val();
+
+	$("#matrix-input").append("<input class='inputmtx' id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input class='inputmtx' id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
+
+	// fill array pmvalues[i][j] named "pmvaluesl_c_"
+	text = "<table border='0' id='pmatrix-table'>";
+
+	for (i=0; i<rows; i++) {
+		text += "<tr>";
+
+		if (i==0) // verifying if it's the first cell of table for keep it empty 
+			text += "<th></th>";
+
+		if (i==0) { // filling with titles
+			for (k=0; k<cols; k++)
+				text += "<th align='center'>"+criterianames[k]+"</th>";
+		} else {
+			for (j=0; j<cols; j++) {
+				if (j==0) {
+					text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
+				} else
+					text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
+			}
+		}
+		
+		text += "</tr>";
+		
+	}
+
+	for (l=0; l<cols; l++) {
+		if (l==0) {
+			text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+		} else
+			text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+	} 
+
+	//last line
+	text += "<tr>";
+	for (l=0; l<cols; l++) {
+		if (l==0) {
+			text += "<th align='center' height='40'>weight: </tH><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+		} else
+			text += "<td height='40'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+	} 
+	text += "</tr>";
+
+	text += "</table>";
+
+	$("#matrix-input").append(text);
+
+	$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");	
+}
+
+/**
+ * This function fill the pmatrix with performance form data
+ * @returns
+ */
+function fillPerformanceMatrix() {
 	// getting overclassification indexes
 	concordance = ($("#concordance").val());
 	discordance = ($("#discordance").val());
@@ -16,8 +75,6 @@ function showPerformanceForm() {
 		for (j=0; j<cols; j++) 
 			pmatrix[i][j] = ($("#pmvaluesl"+i+"c"+j).val()*1); // criteries
 	}
-	console.log("pmatrix:");
-	console.log(pmatrix);
 
 	// filling the weight array
 	weight	= [];
@@ -142,11 +199,10 @@ function showConcordanceMatrixTable() {
 	for (i=0; i<rows; i++) {
 		cmatrix[i] = new Array(); // elements
 		
-		for (j=0; j<cols; j++) 
+		for (j=0; j<rows; j++) {
 			cmatrix[i][j] = concordCel(i, j);
+		}
 	}
-	console.log("cmatrix");
-	console.log(cmatrix);
 	
 	cmatrixhtml = "<table id='cmatrix-table' border='0'>";
 
@@ -157,10 +213,10 @@ function showConcordanceMatrixTable() {
 			cmatrixhtml += "<th></th>";
 
 		if (i==0) { // filling with titles
-			for (k=0; k<cols; k++)
+			for (k=0; k<rows; k++)
 				cmatrixhtml += "<th>"+elementnames[k]+"</th>";
 		} else {
-			for (j=0; j<cols; j++) {
+			for (j=0; j<rows; j++) {
 				if (j==0) {
 					cmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+cmatrix[(i-1)][j]+"</td>";
 				} else
@@ -172,7 +228,7 @@ function showConcordanceMatrixTable() {
 
 	}
 
-	for (l=0; l<cols; l++) {
+	for (l=0; l<rows; l++) {
 		if (l==0) {
 			cmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+cmatrix[(i-1)][l]+"</td>";
 		} else
@@ -193,11 +249,9 @@ function showDiscordanceMatrixTable() {
 	for (i=0; i<rows; i++) {
 		dmatrix[i] = new Array(); // elements
 		
-		for (j=0; j<cols; j++) 
+		for (j=0; j<rows; j++) 
 			dmatrix[i][j] = discordCel(i, j);
 	}
-	console.log("dmatrix");
-	console.log(dmatrix);
 	
 	dmatrixhtml = "<table id='dmatrix-table' border='0'>";
 
@@ -208,10 +262,10 @@ function showDiscordanceMatrixTable() {
 			dmatrixhtml += "<th></th>";
 
 		if (i==0) { // filling with titles
-			for (k=0; k<cols; k++)
+			for (k=0; k<rows; k++)
 				dmatrixhtml += "<th>"+elementnames[k]+"</th>";
 		} else {
-			for (j=0; j<cols; j++) {
+			for (j=0; j<rows; j++) {
 				if (j==0) {
 					dmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+dmatrix[(i-1)][j]+"</td>";
 				} else
@@ -223,7 +277,7 @@ function showDiscordanceMatrixTable() {
 
 	}
 
-	for (l=0; l<cols; l++) {
+	for (l=0; l<rows; l++) {
 		if (l==0) {
 			dmatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+dmatrix[(i-1)][l]+"</td>";
 		} else
@@ -244,11 +298,9 @@ function showCredibilityMatrixTable() {
 	for (i=0; i<rows; i++) {
 		smatrix[i] = new Array(); // elements
 		
-		for (j=0; j<cols; j++) 
+		for (j=0; j<rows; j++) 
 			smatrix[i][j] = credibCel(i, j);
 	}
-	console.log("smatrix");
-	console.log(smatrix);
 	
 	smatrixhtml = "<table id='smatrix-table' border='0'>";
 
@@ -259,10 +311,10 @@ function showCredibilityMatrixTable() {
 			smatrixhtml += "<th></th>";
 
 		if (i==0) { // filling with titles
-			for (k=0; k<cols; k++)
+			for (k=0; k<rows; k++)
 				smatrixhtml += "<th>"+elementnames[k]+"</th>";
 		} else {
-			for (j=0; j<cols; j++) {
+			for (j=0; j<rows; j++) {
 				if (j==0) {
 					smatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+smatrix[(i-1)][j]+"</td>";
 				} else
@@ -274,7 +326,7 @@ function showCredibilityMatrixTable() {
 
 	}
 
-	for (l=0; l<cols; l++) {
+	for (l=0; l<rows; l++) {
 		if (l==0) {
 			smatrixhtml += "<th>"+elementnames[i-1]+"</th><td>"+smatrix[(i-1)][l]+"</td>";
 		} else
@@ -285,6 +337,10 @@ function showCredibilityMatrixTable() {
 	$("#credibility-matrix").append(smatrixhtml);
 }
 
+/**
+ * This function render the resoult of the best team with core and dominated integrants
+ * @returns
+ */
 function showTeamTable() {
 	
 	teamhtml = "<table id='team-table' border='0' celpadding='2'>";
@@ -319,11 +375,8 @@ function showTeamTable() {
 		}
 		// console.log(aux);
 	
-		if (aux>0) {
+		if (aux>0)
 			teamhtml += "["+elementnames[j]+"]  ";
-
-			console.log(elementnames[j]);
-		}
 	}
 	teamhtml += "</td>";
 	teamhtml += "</tr>";
