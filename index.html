@@ -10,8 +10,6 @@
 </head>
 <body>
 
-<!-- 
--->
 <table border="0" width="100%" id="header" cellspacing="0">
 	<tr>
 		<td width="100"><img alt="IME" src="view/img/ime.png" width="100" height="120"></td>
@@ -20,7 +18,7 @@
 			<h3>Military Engineering Institute (IME)</h3>
 			<h4>Master in Computer Systems</h4>
 			<h5>Computational Platforms Development to Decision Taking Supports</h5>
-			<h5>Professor: Marcos Santos / Student (developer): <a href="mailto:vvaldecirr@hotmail.com">Valdecir S. Pereira</a> - 2019</h5>
+			<h5>Professor: Marcos Santos / Student (developer): <a href="mailto:vvaldecirr@hotmail.com" class="planlink">Valdecir S. Pereira</a> - 2019</h5>
 		</td>
 		<td width="100" bgcolor="#b5dbea"><img alt="HTML - JS - CSS" src="view/img/language.png" width="100" height="120"></td>
 	</tr>
@@ -152,7 +150,7 @@
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
 		
-		event.preventDefault();
+		//event.preventDefault();
 		
 		// filling the performance matrix
 		fillPerformanceMatrix();
@@ -180,11 +178,42 @@
 		//$("#graph-table").html("");
 		showGraph();
 		
-		
+		event.preventDefault();
 	});
+	
+	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
+	$( "#renaming" ).submit(function( event ) {
+		// scripts
+		/*
+		for (i=0; i<cols; i++) 
+			criterianames[i] = ($("#cnames"+i).val()); // criteries
+		
+		for (i=0; i<rows; i++) 
+			elementnames[i] = ($("#enames"+i).val()); // elements
+		*/
+		// render a HTML form to be showed on page
+		//$("#matrix-input").html("");
+		//showPerformanceForm();
+		console.log(criterianames);
+		console.log(elementnames);
+
+		event.preventDefault();
+	});
+
 </script>
- 
-<a href="view/arbor/demos/index.html#/js-electre-1">graph</a> 
+
+<div id="darklayer">
+	<table border="0" width="800" bgcolor="#d5e3ed"><tr><td height="600">
+		<fieldset>
+		    <legend>renaming fields:</legend>
+			<form id="renaming" action="index.html">
+				<div id="rename-input"></div>
+			</form>
+			<br />
+			<div class='saverenamebtn'>cancel</div>
+		</fieldset>
+	</td></tr></table>
+</div>
 
 </body>
 </html>

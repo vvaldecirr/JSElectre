@@ -16,7 +16,7 @@ function showPerformanceForm() {
 		text += "<tr>";
 
 		if (i==0) // verifying if it's the first cell of table for keep it empty 
-			text += "<th></th>";
+			text += "<th><div id='renamebtn' class='button'>rename</div></th>";
 
 		if (i==0) { // filling with titles
 			for (k=0; k<cols; k++)
@@ -45,9 +45,9 @@ function showPerformanceForm() {
 	text += "<tr>";
 	for (l=0; l<cols; l++) {
 		if (l==0) {
-			text += "<th align='center' height='40'>weight: </tH><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' step='0.01' value='0'></td>";
+			text += "<th align='center' height='30'>weight: </th><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' step='0.01' value='0'></td>";
 		} else
-			text += "<td height='40'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' step='0.01' value='0'></td>";
+			text += "<td height='30'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' step='0.01' value='0'></td>";
 	} 
 	text += "</tr>";
 
@@ -58,6 +58,40 @@ function showPerformanceForm() {
 	$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");
 	
 	$("#graph-table").html("");
+
+	
+	
+	
+	// fill renaming form
+	$("#rename-input").html("");
+	text = "<table border='0' id='rename-table'><tr><th>criteries: </th>";
+	for (i=0; i<cols; i++) {
+		text += "<th>"+criterianames[i]+"</th>";
+	}
+	text += "</tr><tr><th>new: </th>";
+	for (i=0; i<cols; i++) {
+		text += "<td><input class='' id='cnames"+i+"' type='text' size='10' value='"+criterianames[i]+"'></td>";
+	}
+	text += "</tr><tr><th height='10'></th><th colspan='"+cols+"'></th></tr><tr><th>elements:</th><th>new:</th><th colspan='"+(cols-1)+"'></th</tr>";
+	for (i=0; i<rows; i++) {
+		text += "<tr><th>"+elementnames[i]+"</th>";
+		text += "<td><input class='' id='enames"+i+"' type='text' size='10' value='"+elementnames[i]+"' colspan='"+cols+"'></td></tr>";
+	}
+	text += "</table><br /><input class='saverenamebtn' type='submit' value='save and close'>";
+	$("#rename-input").append(text);
+	
+	
+
+	
+	
+	// renaming event
+	$( "#renamebtn" ).click(function() {
+		$( "#darklayer" ).fadeIn();
+	});
+
+	$( ".saverenamebtn" ).click(function() {
+		$( "#darklayer" ).fadeOut();
+	});
 
 }
 
