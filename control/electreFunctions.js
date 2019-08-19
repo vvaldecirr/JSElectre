@@ -385,3 +385,20 @@ function showTeamTable() {
 
 	$("#team-table").append(teamhtml);
 }
+
+/**
+ * This function renders the animated graph
+ * @returns
+ */
+function showGraph() {
+	graphhtml = "<p>";
+	for (i=0; i<rows; i++) {
+		for (j=0; j<rows; j++) {
+			if (smatrix[i][j] == 1) {
+				graphhtml += elementnames[i]+" -> "+elementnames[j]+"<br />";
+			}
+		}
+	}
+	graphhtml += "</p>";
+	$("#graph-table").append(graphhtml);
+}

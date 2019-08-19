@@ -102,7 +102,7 @@
 <script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="control/electreFunctions.js"></script>
 <script>
-	var text, cmatrixhtml, dmatrixhtml, smatrixhtml, teamhtml, rows, cols, maxdelta, pmatrix, cmatrix, dmatrix, smatrix, concordance, discordance, i, j, k, l, weight;
+	var text, cmatrixhtml, dmatrixhtml, smatrixhtml, teamhtml, graphhtml, rows, cols, maxdelta, pmatrix, cmatrix, dmatrix, smatrix, concordance, discordance, i, j, k, l, weight;
 	var elementnames	= ["eA", "eB", "eC", "eD", "eE", "eF", "eG", "eH", "eI", "eJ", "eK", "eL", "eM", "eN", "eO", "eP", "eQ", "eR", "eS", "eT", "eW", "eU", "eV", "eX", "eY", "eZ", ];
 	var criterianames	= ["cA", "cB", "cC", "cD", "cE", "cF", "cG", "cH", "cI", "cJ", "cK", "cL", "cM", "cN", "cO", "cP", "cQ", "cR", "cS", "cT", "cW", "cU", "cV", "cX", "cY", "cZ", ];
 
@@ -139,6 +139,10 @@
 		// filling the team table
 		$("#team-table").html("");
 		showTeamTable();
+		
+		// rendering the graph
+		$("#graph-table").html("");
+		showGraph();
 		
 		event.preventDefault();
 	});
