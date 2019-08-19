@@ -74,6 +74,18 @@
 		<td align="right" valign="top">
 			<table border="0"><tr><td>
 				<fieldset>
+				    <legend>dynamic graph:</legend>
+					<div id="graph-table">
+						  <div id="halfviz">
+						    <canvas id="viewport" width="100" height="5"></canvas>
+						    <div id="grabber"></div>
+						  </div>					
+					</div>
+				</fieldset>
+			</td></tr></table>
+
+			<table border="0"><tr><td>
+				<fieldset>
 				    <legend>performance matrix:</legend>
 						<form id="matrix" action="index.html">
 							<div id="matrix-input"></div>
@@ -85,13 +97,6 @@
 				<fieldset>
 				    <legend>best team:</legend>
 					<div id="team-table"></div>
-				</fieldset>
-			</td></tr></table>
-
-			<table border="0"><tr><td>
-				<fieldset>
-				    <legend>dinamic graph:</legend>
-					<div id="graph-table"></div>
 				</fieldset>
 			</td></tr></table>
 		</td>
@@ -120,8 +125,15 @@
 	</tr>
 </table>
 
-<script type="text/javascript" src="view/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="control/electreFunctions.js"></script>
+<script src="view/jquery-1.7.1.min.js"></script>
+<script src="view/arbor/demos/jquery.address-1.4.min.js"></script>
+<script src="view/arbor/lib/arbor.js"></script>
+<script src="view/arbor/demos/graphics.js"></script>
+<script src="view/arbor/demos/src/io.js"></script>
+<script src="view/arbor/demos/src/parseur.js"></script>
+<script src="view/arbor/demos/src/renderer.js"></script>
+<script src="control/electreFunctions.js"></script>
+
 <script>
 	var text, cmatrixhtml, dmatrixhtml, smatrixhtml, teamhtml, graphhtml, rows, cols, maxdelta, pmatrix, cmatrix, dmatrix, smatrix, concordance, discordance, i, j, k, l, weight;
 	var elementnames	= ["eA", "eB", "eC", "eD", "eE", "eF", "eG", "eH", "eI", "eJ", "eK", "eL", "eM", "eN", "eO", "eP", "eQ", "eR", "eS", "eT", "eW", "eU", "eV", "eX", "eY", "eZ", ];
@@ -139,6 +151,9 @@
 
 	// script that get the values of performance matrix and full fill the other matrix already souwing the results	
 	$( "#matrix" ).submit(function( event ) {
+		
+		event.preventDefault();
+		
 		// filling the performance matrix
 		fillPerformanceMatrix();
 		
@@ -162,10 +177,10 @@
 		showTeamTable();
 		
 		// rendering the graph
-		$("#graph-table").html("");
+		//$("#graph-table").html("");
 		showGraph();
 		
-		event.preventDefault();
+		
 	});
 </script>
  

@@ -55,7 +55,10 @@ function showPerformanceForm() {
 
 	$("#matrix-input").append(text);
 
-	$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");	
+	$("#matrix-input").append("<input id='pmatrixbtn' type='submit' value='calculate'>");
+	
+	$("#graph-table").html("");
+
 }
 
 /**
@@ -384,7 +387,7 @@ function showTeamTable() {
 }
 
 /**
- * This function renders the animated graph
+ * This function fills the JSON data and calls the animated graph render
  * @returns
  */
 function showGraph() {
@@ -392,12 +395,14 @@ function showGraph() {
 	var graphcolors = [];
 	graphcolors[0] = new Array(); // index of element name
 	graphcolors[1] = new Array(); // color generated
-	
-	graphhtml = "<p>";
+
+	//graphhtml = "<p>";
+	graphhtml = "";
 	for (i=0; i<rows; i++) {
 		for (j=0; j<rows; j++) {
 			if (smatrix[i][j] == 1) {
-				graphhtml += elementnames[i]+" -> "+elementnames[j]+"<br />";
+				//graphhtml += elementnames[i]+" -> "+elementnames[j]+"  {weight:3, color:#99f}<br>";
+				graphhtml += elementnames[i]+" -> "+elementnames[j]+"  {weight:3, color:#1279c1}\n";
 				
 				if (!graphcolors[0].includes(i)) {
 					graphcolors[0].push(i);
@@ -413,8 +418,133 @@ function showGraph() {
 	}
 	
 	for (i=0; i<graphcolors[0].length; i++)
-		graphhtml += elementnames[graphcolors[0][i]]+" {color:"+graphcolors[1][i]+"}<br />";
+		graphhtml += elementnames[graphcolors[0][i]]+" {color:"+graphcolors[1][i]+"}\n";
+		//graphhtml += elementnames[graphcolors[0][i]]+" {color:"+graphcolors[1][i]+"}<br />";
+
+	//graphhtml += "</p>";
+	graphhtml += "";
 	
-	graphhtml += "</p>";
-	$("#graph-table").append(graphhtml);
+	loadVisualGraph(graphhtml, "#graph-table");
+	//$("#graph-table").append(graphhtml);
+}
+
+/**
+ * This function render the visual graph 
+ * @param values
+ * @param id
+ * @returns
+ */
+function loadVisualGraph(values, id){
+	var mcp = null;
+	$("#graph-table").html('<div id="halfviz"><canvas id="viewport" width="400" height="400"></canvas></div>');
+	var mcp = HalfViz(id, values);
+}
+
+/**
+ * Function extracted from helfviz.js and parseur.js
+ */
+var HalfViz = function(elt,json){
+	var _json = json
+	var dom = $(elt)
+
+	trace = arbor.etc.trace
+	objmerge = arbor.etc.objmerge
+	objcopy = arbor.etc.objcopy
+	var parse = Parseur().parse;
+	  
+	sys = arbor.ParticleSystem(2600, 512, 0.5);
+	sys.renderer = Renderer("#viewport"); // our newly created renderer will have its .init() method called shortly by sys...
+	sys.screenPadding(20);
+	  
+	var _ed = dom.find('#editor')
+	var _code = dom.find('textarea')
+	var _canvas = dom.find('#viewport').get(0)
+	  
+	var _updateTimeout = null
+	var _current = null // will be the id of the doc if it's been saved before
+	var _editing = false // whether to undim the Save menu and prevent navigating away
+	var _failures = null
+	  
+	var that = {
+		jsonContent: "{}",
+		init:function(){
+			$(window).resize(that.resize)
+			that.resize()
+			that.updateLayout(Math.max(1, $(window).width()-340))
+			
+			that.getDoc();
+			return that
+		},
+	  
+		getDoc:function(e){	       
+			_code.val(this.jsonContent)
+			that.updateGraph()
+			that.resize()
+			_editing = false	        
+		},
+		
+		newDoc:function(){
+			_code.val(lorem).focus()
+			$.address.value("")
+			that.updateGraph()
+			that.resize()
+			_editing = false
+		},
+		
+		updateGraph:function(e){
+			var src_txt = that.jsonContent;
+			var network = parse(src_txt)
+			$.each(network.nodes, function(nname, ndata){
+				if (ndata.label===undefined) ndata.label = nname
+			})
+			sys.merge(network)
+			_updateTimeout = null
+		},
+		
+		resize:function(){        
+			var w = $(window).width() - 40
+			var x = w - _ed.width()
+			that.updateLayout(x)
+			sys.renderer.redraw()
+		},
+		
+		updateLayout:function(split){},
+		
+		grabbed:function(e){
+			$(window).bind('mousemove', that.dragged)
+			$(window).bind('mouseup', that.released)
+			return false
+		},
+		
+		dragged:function(e){
+			var w = dom.width()
+			that.updateLayout(Math.max(10, Math.min(e.pageX-10, w)) )
+			sys.renderer.redraw()
+			return false
+		},
+		
+		released:function(e){
+			$(window).unbind('mousemove', that.dragged)
+			return false
+		},
+		
+		typing:function(e){
+			var c = e.keyCode
+			if ($.inArray(c, [37, 38, 39, 40, 16])>=0){
+			return
+		}
+		
+		if (!_editing){
+			$.address.value("")
+		}
+		
+		_editing = true
+		
+		if (_updateTimeout) clearTimeout(_updateTimeout)
+			_updateTimeout = setTimeout(that.updateGraph, 900)
+		}
+	}
+	
+	that.jsonContent = json;
+	return that.init();
 }

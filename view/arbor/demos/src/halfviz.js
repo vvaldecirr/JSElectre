@@ -13,6 +13,7 @@
 
   var HalfViz = function(elt){
     var dom = $(elt)
+    console.log('teste3');
 
     sys = arbor.ParticleSystem(2600, 512, 0.5)
     sys.renderer = Renderer("#viewport") // our newly created renderer will have its .init() method called shortly by sys...
@@ -32,7 +33,7 @@
       dashboard:Dashboard("#dashboard", sys),
       io:IO("#editor .io"),
       init:function(){
-        
+
         $(window).resize(that.resize)
         that.resize()
         that.updateLayout(Math.max(1, $(window).width()-340))
