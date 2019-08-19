@@ -351,7 +351,7 @@ function showTeamTable() {
 	for (j=0; j<rows; j++) {
 		var aux = 0;
 		
-		for (k=0; k<cols; k++) {
+		for (k=0; k<rows; k++) {
 			if (smatrix[j][k] == 1)
 				aux += smatrix[j][k];
 		}
@@ -368,7 +368,7 @@ function showTeamTable() {
 	for (j=0; j<rows; j++) {
 		var aux = 0;
 		
-		for (k=0; k<cols; k++) {
+		for (k=0; k<rows; k++) {
 			if (smatrix[k][j] == 1) {
 				aux += smatrix[k][j];
 			}
