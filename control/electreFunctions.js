@@ -24,9 +24,9 @@ function showPerformanceForm() {
 		} else {
 			for (j=0; j<cols; j++) {
 				if (j==0) {
-					text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
+					text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' step='0.01' value='0'></td>";
 				} else
-					text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' value='0'></td>";
+					text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+j+"' type='number' step='0.01' value='0'></td>";
 			}
 		}
 		
@@ -36,18 +36,18 @@ function showPerformanceForm() {
 
 	for (l=0; l<cols; l++) {
 		if (l==0) {
-			text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+			text += "<th align='center'>"+elementnames[i-1]+"</th><td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' step='0.01' value='0'></td>";
 		} else
-			text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' value='0'></td>";
+			text += "<td><input class='inputmtx' id='pmvaluesl"+(i-1)+"c"+l+"' type='number' step='0.01' value='0'></td>";
 	} 
 
 	//last line
 	text += "<tr>";
 	for (l=0; l<cols; l++) {
 		if (l==0) {
-			text += "<th align='center' height='40'>weight: </tH><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+			text += "<th align='center' height='40'>weight: </tH><td><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' step='0.01' value='0'></td>";
 		} else
-			text += "<td height='40'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' value='0'></td>";
+			text += "<td height='40'><input class='inputmtx' id='pmvaluesl"+i+"c"+l+"' type='number' step='0.01' value='0'></td>";
 	} 
 	text += "</tr>";
 
@@ -78,10 +78,8 @@ function fillPerformanceMatrix() {
 
 	// filling the weight array
 	weight	= [];
-	for (k=0; k<cols; k++) {
-		//console.log($("#pmvaluesl"+rows+"c"+k).val()*1);
+	for (k=0; k<cols; k++)
 		weight[k] = $("#pmvaluesl"+rows+"c"+k).val()*1;
-	}
 }
 
 /**
@@ -357,7 +355,7 @@ function showTeamTable() {
 		}
 	
 		if (aux>0)
-			teamhtml += "["+elementnames[j]+"]  ";
+			teamhtml += "[<b>"+elementnames[j]+"</b>]  ";
 	}
 	teamhtml += "</td>";
 	teamhtml += "</tr>";
@@ -373,7 +371,6 @@ function showTeamTable() {
 				aux += smatrix[k][j];
 			}
 		}
-		// console.log(aux);
 	
 		if (aux>0)
 			teamhtml += "["+elementnames[j]+"]  ";
@@ -391,14 +388,33 @@ function showTeamTable() {
  * @returns
  */
 function showGraph() {
+	// generating a muitodmentional information of graph dots collors
+	var graphcolors = [];
+	graphcolors[0] = new Array(); // index of element name
+	graphcolors[1] = new Array(); // color generated
+	
 	graphhtml = "<p>";
 	for (i=0; i<rows; i++) {
 		for (j=0; j<rows; j++) {
 			if (smatrix[i][j] == 1) {
 				graphhtml += elementnames[i]+" -> "+elementnames[j]+"<br />";
+				
+				if (!graphcolors[0].includes(i)) {
+					graphcolors[0].push(i);
+					graphcolors[1].push('#'+Math.random().toString(16).slice(2, 8).toUpperCase());
+				}
+
+				if (!graphcolors[0].includes(j)) {
+					graphcolors[0].push(j);
+					graphcolors[1].push('#'+Math.random().toString(16).slice(2, 8).toUpperCase());
+				}
 			}
 		}
 	}
+	
+	for (i=0; i<graphcolors[0].length; i++)
+		graphhtml += elementnames[graphcolors[0][i]]+" {color:"+graphcolors[1][i]+"}<br />";
+	
 	graphhtml += "</p>";
 	$("#graph-table").append(graphhtml);
 }
