@@ -16,7 +16,7 @@ function showPerformanceForm() {
 		text += "<tr>";
 
 		if (i==0) // verifying if it's the first cell of table for keep it empty 
-			text += "<th><div id='renamebtn' class='button'>rename</div></th>";
+			text += "<th></div></th>"; // text += "<th><div id='renamebtn' class='button'>rename</div></th>";
 
 		if (i==0) { // filling with titles
 			for (k=0; k<cols; k++)
