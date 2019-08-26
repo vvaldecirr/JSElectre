@@ -7,7 +7,7 @@ function showPerformanceForm() {
 	rows = $("#rows").val();
 	cols = $("#cols").val();
 
-	$("#matrix-input").append("<input class='inputmtx' id='concordance' type='number' step='0.01' max='1' min='0' value='1'> ^c<br /><input class='inputmtx' id='discordance' type='number' step='0.01' max='1' min='0' value='0'> ^d<br /><br />");
+	$("#matrix-input").append("<input class='inputmtx' id='concordance' type='number' step='0.01' max='1' min='0.5' value='1'> ^c<br /><input class='inputmtx' id='discordance' type='number' step='0.01' max='0.5' min='0' value='0'> ^d<br /><br />");
 
 	// fill array pmvalues[i][j] named "pmvaluesl_c_"
 	text = "<table border='0' id='pmatrix-table'>";
