@@ -9,12 +9,8 @@ body {
 	background-color: #d5e3ed;
 }
 
-a:link {
+a:link, a:visited {
 	color: #fff;
-}
-
-a:visited {
-	color: #ccc;
 }
 
 a:hover {
