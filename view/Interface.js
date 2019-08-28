@@ -1,59 +1,69 @@
 /**
  * CAMADA DE INTERFACE DA VIEW COM O CONTROLADOR
  */
-$(document).ready(function(){//Atributo JQuery que só permite a execução apóes completa carga do sistema
-// 	//Instanciando cada andar do prédio
-// 	var andar1 = new Andar(1);
-// 	var andar2 = new Andar(2);
-// 	var andar3 = new Andar(3);
-// 	var andar4 = new Andar(4);
-// 	var andar5 = new Andar(5);
-// 	var andar6 = new Andar(6);
+var text, cmatrixhtml, dmatrixhtml, smatrixhtml, teamhtml, graphhtml, rows, cols, maxdelta, pmatrix, cmatrix, dmatrix, smatrix, concordance, discordance, i, j, k, l, weight;
+var elementnames	= ["eA", "eB", "eC", "eD", "eE", "eF", "eG", "eH", "eI", "eJ", "eK", "eL", "eM", "eN", "eO", "eP", "eQ", "eR", "eS", "eT", "eW", "eU", "eV", "eX", "eY", "eZ", ];
+var criterianames	= ["cA", "cB", "cC", "cD", "cE", "cF", "cG", "cH", "cI", "cJ", "cK", "cL", "cM", "cN", "cO", "cP", "cQ", "cR", "cS", "cT", "cW", "cU", "cV", "cX", "cY", "cZ", ];
+
+// script that get the size of matrix entry and generate the performance matrix
+$( "#dimentions" ).submit(function( event ) {
+
+	// render a HTML form to be showed on page
+	$("#matrix-input").html("");
+	showPerformanceForm();
 	
-// 	//Instanciando o único elevador do prédio
-// 	var elevador1 = new Elevador(andar1);
+	event.preventDefault();
+});
+
+// script that get the values of performance matrix and full fill the other matrix already souwing the results	
+$( "#matrix" ).submit(function( event ) {
 	
-// 	//Instanciando o Controlador
-// 	var controlador = new Controlador();
+	//event.preventDefault();
 	
-// 	//Vinculando ações dos botões ao Controlador
-// 	$("#bot1, #pb1").click(function(){
-// 		controlador.solicitarServico(elevador1, andar1);		
-// 	});
-// 	$("#bot2, #pb2").click(function(){
-// 		controlador.solicitarServico(elevador1, andar2);		
-// 	});
-// 	$("#bot3, #pb3").click(function(){
-// 		controlador.solicitarServico(elevador1, andar3);		
-// 	});
-// 	$("#bot4, #pb4").click(function(){
-// 		controlador.solicitarServico(elevador1, andar4);		
-// 	});
-// 	$("#bot5, #pb5").click(function(){
-// 		controlador.solicitarServico(elevador1, andar5);		
-// 	});
-// 	$("#bot6, #pb6").click(function(){
-// 		controlador.solicitarServico(elevador1, andar6);		
-// 	});
+	// filling the performance matrix
+	fillPerformanceMatrix();
 	
-// 	$("#info").append("<br />" + elevador1.getCompleteInfo() + "<hr>");
+	// calculate the maximun delta
+	findMaxDelta();
 	
-// //	elevador1.addAndar(andar5);
-// //	elevador1.removeAndar(andar5);
+	// filling the concordance matrix table
+	$("#concordance-matrix").html("");
+	showConcordanceMatrixTable();
+
+	// filling the concordance matrix table
+	$("#discordance-matrix").html("");
+	showDiscordanceMatrixTable();
 	
-// //	alert(elevador1.getAndaresInfo());
+	// filling the credibility matrix table
+	$("#credibility-matrix").html("");
+	showCredibilityMatrixTable();
 	
-// //	$.each(elevador1.andares, function(key, value){
-// //		alert( key + ": " + value );
-// //	});
+	// filling the team table
+	$("#team-table").html("");
+	showTeamTable();
 	
-// 	//Hover do mouse no painel do elevador
-// //	$("#painel div").on({
-// //		mouseenter: function(){
-// //			$(this).css("border", "#ff5 solid 5px");
-// //		},
-// //		mouseleave: function(){
-// //			$(this).css("border", "#fff solid 5px");
-// //		} 
-// //	});
+	// rendering the graph
+	//$("#graph-table").html("");
+	showGraph();
+	
+	event.preventDefault();
+});
+
+// script that get the values of performance matrix and full fill the other matrix already souwing the results	
+$( "#renaming" ).submit(function( event ) {
+	// scripts
+	/*
+	for (i=0; i<cols; i++) 
+		criterianames[i] = ($("#cnames"+i).val()); // criteries
+	
+	for (i=0; i<rows; i++) 
+		elementnames[i] = ($("#enames"+i).val()); // elements
+	*/
+	// render a HTML form to be showed on page
+	//$("#matrix-input").html("");
+	//showPerformanceForm();
+	console.log(criterianames);
+	console.log(elementnames);
+
+	event.preventDefault();
 });
