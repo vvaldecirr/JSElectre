@@ -1,6 +1,7 @@
 /**
  * CAMADA DE INTERFACE DA VIEW COM O CONTROLADOR
  */
+// variables declaration
 var text, cmatrixhtml, dmatrixhtml, smatrixhtml, teamhtml, graphhtml, rows, cols, maxdelta, pmatrix, cmatrix, dmatrix, smatrix, concordance, discordance, i, j, k, l, weight;
 var elementnames	= ["eA", "eB", "eC", "eD", "eE", "eF", "eG", "eH", "eI", "eJ", "eK", "eL", "eM", "eN", "eO", "eP", "eQ", "eR", "eS", "eT", "eW", "eU", "eV", "eX", "eY", "eZ", ];
 var criterianames	= ["cA", "cB", "cC", "cD", "cE", "cF", "cG", "cH", "cI", "cJ", "cK", "cL", "cM", "cN", "cO", "cP", "cQ", "cR", "cS", "cT", "cW", "cU", "cV", "cX", "cY", "cZ", ];
@@ -12,10 +13,11 @@ $( "#dimentions" ).submit(function( event ) {
 	$("#matrix-input").html("");
 	showPerformanceForm();
 	
+	// avoid the submit event refresh the page
 	event.preventDefault();
 });
 
-// script that get the values of performance matrix and full fill the other matrix already souwing the results	
+// script that get the values of performance matrix and full fill the other matrix already showing the results	
 $( "#matrix" ).submit(function( event ) {
 	
 	//event.preventDefault();
@@ -46,6 +48,7 @@ $( "#matrix" ).submit(function( event ) {
 	//$("#graph-table").html("");
 	showGraph();
 	
+	// avoid the submit event refresh the page
 	event.preventDefault();
 });
 
@@ -65,5 +68,6 @@ $( "#renaming" ).submit(function( event ) {
 	console.log(criterianames);
 	console.log(elementnames);
 
+	// avoid the submit event refresh the page
 	event.preventDefault();
 });
